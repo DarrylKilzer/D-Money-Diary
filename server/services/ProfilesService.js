@@ -47,12 +47,12 @@ function sanitizeBody(body) {
 
 class ProfileService {
   /**
-   * Provided an array of user emails will return an array of user profiles with email picture and name
-   * @param {String[]} emails Array of email addresses to lookup users by
+   * Provided an array of user ids will return an array of user profiles with email picture and name
+   * @param {String[]} ids Array of ids to lookup users by
    */
-  async getProfiles(emails = []) {
+  async getProfiles(ids = []) {
     let profiles = await dbContext.Profile.find({
-      email: { $in: emails }
+      _id: { $in: ids }
     }).select("email picture name");
     return profiles;
   }
@@ -67,7 +67,7 @@ class ProfileService {
    */
   async getProfile(user) {
     let profile = await dbContext.Profile.findOne({
-      email: user.email
+      _id: user.id
     });
     profile = await createProfileIfNeeded(profile, user);
     await mergeSubsIfNeeded(profile, user);
@@ -81,7 +81,7 @@ class ProfileService {
   async updateProfile(user, body) {
     let update = sanitizeBody(body);
     let profile = await dbContext.Profile.findOneAndUpdate(
-      { email: user.email },
+      { _id: user.id },
       { $set: update },
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     );

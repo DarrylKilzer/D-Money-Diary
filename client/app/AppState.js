@@ -1,4 +1,5 @@
 import Value from "./Models/Value.js"
+import Entry from "./Models/Entry.js"
 import { EventEmitter } from "./Utils/EventEmitter.js"
 import { isValidProp } from "./Utils/isValidProp.js"
 
@@ -7,6 +8,8 @@ class AppState extends EventEmitter {
   profile = {}
   /** @type {Value[]} */
   values = []
+  /** @type {Entry[]} */
+  entries = []
 }
 
 export const ProxyState = new Proxy(new AppState(), {

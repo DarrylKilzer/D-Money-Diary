@@ -29,6 +29,17 @@
     </header>
     <main class="container-fluid">
         <div class="row my-3">
+            <form class="shadow-lg col-12 mb-5" onsubmit="app.entryController.create(event)">
+                <div class="form-group">
+                    <label for="">Title:</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter title...">
+                </div>
+                <div class="form-group">
+                    <label for="">Entry:</label>
+                    <textarea name="description" cols="80" rows="5"></textarea>
+                </div>
+                <button class="btn btn-success" type="submit">+</button>
+            </form>
             <div class="col-5">
                 <div class="card p-2 skeleton-loader">
                     <div class="card-title p-2">
