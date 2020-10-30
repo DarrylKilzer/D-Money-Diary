@@ -36,6 +36,13 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+
+button.close:focus {
+  outline: none;
+}
+
+
+
 *,
 *::before,
 *::after {

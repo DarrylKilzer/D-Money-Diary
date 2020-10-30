@@ -8,10 +8,20 @@ export class EntryController extends BaseController {
         this.router
             .use(Auth0Provider.getAuthorizedUserInfo)
             .get('', this.getAll)
+            .get('/user', this.getMyEntries)
             .post('', this.create)
+            .delete('/:id', this.delete)
     }
 
     async getAll(req, res, next) {
+        try {
+            res.send(await entryService.getAll({ isPrivate: false }))
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getMyEntries(req, res, next) {
         try {
             res.send(await entryService.getAll({ creatorId: req.userInfo.id }))
         } catch (error) {
@@ -23,6 +33,14 @@ export class EntryController extends BaseController {
         try {
             req.body.creatorId = req.userInfo.id
             res.send(await entryService.create(req.body))
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+            res.send(await entryService.delete(req.userInfo.id, req.params.id))
         } catch (error) {
             next(error)
         }

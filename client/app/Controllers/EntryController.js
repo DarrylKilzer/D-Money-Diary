@@ -4,8 +4,10 @@ import { entryService } from "../Services/EntryService.js";
 
 //Private
 function _draw() {
-    let entries = ProxyState.entries;
-    console.log(entries);
+    let template = ""
+    console.log(ProxyState.entries);
+    ProxyState.entries.forEach(e => template += e.Template);
+    document.getElementById("entries").innerHTML = template
 }
 
 //Public
@@ -21,6 +23,12 @@ export default class EntryController {
             description: e.target.description.value
         }
         entryService.create(data)
+        e.target.reset()
+        $('.modal').modal('toggle')
+    }
+
+    delete(id) {
+        entryService.delete(id)
     }
 
 }

@@ -6,7 +6,8 @@ const Entry = new Schema(
     {
         title: { type: String, required: true },
         description: { type: String, required: true },
-        creatorId: { type: String, ref: "Profile", required: true }
+        creatorId: { type: String, ref: "Profile", required: true },
+        isPrivate: { type: Boolean, required: true, default: false }
     },
     { timestamps: true, toJSON: { virtuals: true } }
 );
